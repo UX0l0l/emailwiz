@@ -37,10 +37,7 @@ case "$v6choice" in
 esac
 
 # Open required mail ports, and 80, for Certbot.
-for port in 80 993 465 25 587 110 995
-do
-	ufw allow "$port" 2>/dev/null
-done
+ufw allow 80, 993, 465, 25, 587, 110, 995/tcp 2>/dev/null
 
 [ ! -d "$certdir" ] &&
 	possiblecert="$(certbot certificates 2>/dev/null | grep "Domains:\.* \(\*\.$domain\|$maildomain\)\(\s\|$\)" -A 2 | awk '/Certificate Path/ {print $3}' | head -n1)" &&
